@@ -11,7 +11,7 @@ export default defineSchema({
     // .index("by_uid", ["uid"])
     // .index("by_email", ["email"])
 
-    workspaces:defineTable({
+    workspace:defineTable({
         messages:v.any(),//JSON object
         fileData:v.optional(v.any()),   //JSON object
         user:v.id('users'), //uid

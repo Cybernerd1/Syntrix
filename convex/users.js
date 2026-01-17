@@ -27,11 +27,12 @@ export const createUser = mutation({
       })
       console.log("New user created",result);
     }else{
-      if(user[0]?.token===undefined|| user[0]?.token===null){
+      const existingUser = user[0];
+      if(existingUser?.token === undefined || existingUser?.token === null){
         await ctx.db.patch(existingUser._id, {
-              token: 50000 
-          });
-          console.log(`Patched existing user ${existingUser._id} with initial token.`);
+          token: 50000 
+        });
+        console.log(`Patched existing user ${existingUser._id} with initial token.`);
       } 
     }
   },

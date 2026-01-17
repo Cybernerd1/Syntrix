@@ -50,7 +50,7 @@ const ChatView = () => {
         workspaceId: id,
       });
       setMessages(result?.messages || []);
-      console.log(result);
+      // console.log(result);
     } catch (error) {
       console.error("Error fetching workspace data:", error);
       setMessages([]); // Reset messages on error
@@ -59,34 +59,53 @@ const ChatView = () => {
 
   const GenAiResponse = async () => {
     setLoading(true);
-    const PROMPT = JSON.stringify(messages) + Prompt.CHAT_PROMPT;
-    const result = await axios.post("/api/ai-chat ", { prompt: PROMPT });
-    console.log("AI Response:", result.data.result);
-    // console.log("AI Response:", result.data.output || result.data.response || result.data);
+    try {
+      const PROMPT = JSON.stringify(messages) + Prompt.CHAT_PROMPT;
+      const result = await axios.post("/api/ai-chat", { prompt: PROMPT });
+      
+      // Check if the response contains an error
+      if (result.data.error) {
+        console.error("AI API Error:", result.data.error);
+        
+        // Check if it's a rate limit error
+        if (result.data.error.includes("429") || result.data.error.includes("quota")) {
+          toast.error("Rate limit exceeded. Please wait a moment and try again.");
+        } else {
+          toast.error("AI Error: " + result.data.error);
+        }
+        setLoading(false);
+        return;
+      }
+      
+      console.log("AI Response:", result.data.result);
 
-    const aiResp = {
-      role: "ai",
-      content: result.data.result,
-    };
+      const aiResp = {
+        role: "ai",
+        content: result.data.result,
+      };
 
-    setMessages((prev) => [...prev, aiResp]);
+      setMessages((prev) => [...prev, aiResp]);
 
-    await UpdateMessages({
-      messages: [...messages, aiResp],
-      workspaceId: id,
-    });
-    
-    const token =
-      Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
-    // updating the tokens in the database
-    setUserDetail(prev=>({
-      ...prev,
-      token:token
-    }))
-    await UpdateTokens({
-      userId: userDetail?._id,
-      token: token,
-    });
+      await UpdateMessages({
+        messages: [...messages, aiResp],
+        workspaceId: id,
+      });
+      
+      const token =
+        Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
+      // updating the tokens in the database
+      setUserDetail(prev=>({
+        ...prev,
+        token:token
+      }))
+      await UpdateTokens({
+        userId: userDetail?._id,
+        token: token,
+      });
+    } catch (error) {
+      console.error("Error in GenAiResponse:", error);
+      toast.error("Failed to generate AI response. Please check your API key.");
+    }
     setLoading(false);
   };
 

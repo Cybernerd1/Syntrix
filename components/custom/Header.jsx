@@ -1,5 +1,5 @@
 // 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import codewave from '../../public/CodeWave2.png'
 import Image from 'next/image'
 import {useContext} from 'react'
@@ -10,14 +10,16 @@ import { usePathname } from 'next/navigation'
 import { ActionContext } from '@/context/ActionContext'
 import { LucideDownload, Rocket } from 'lucide-react'
 import Link from 'next/link'
+import SignInDialog from './SignInDialog'
 
 const Header = () => {
   const {userDetail,setUserDetail} = useContext(UserDetailContext)
   const {toggleSidebar}=useSidebar()
   const {action,setAction}=useContext(ActionContext)
   const path=usePathname()
+  const [openDialog, setOpenDialog] = useState(false)
 
-  console.log(path?.includes('workspace'))
+  // console.log(path?.includes('workspace'))
 
   const onActionBtn=(action)=>{
 
@@ -35,14 +37,15 @@ const Header = () => {
         <Image src={codewave} alt="logo"  height={40}  />
         </Link>
         {!userDetail?.name? <div className='flex gap-2'> 
-            <Button variant='outline'>Sign In</Button>
-            <Button>Get Started</Button>
+            <Button variant='outline' onClick={() => setOpenDialog(true)} className='cursor-pointer'>Sign In</Button>
+            <Button onClick={() => setOpenDialog(true)} className='cursor-pointer'>Get Started</Button>
         </div>:
         path?.includes('workspace')&&<div className='flex gap-2 items-center'>
           <Button variant='ghost' onClick={()=>onActionBtn('export')} ><LucideDownload/>Export </Button>
           <Button onClick={()=>onActionBtn('deploy')} className="bg-blue-500 text-white hover:bg-blue-600" > <Rocket/>Deploy </Button>
-          {userDetail&&<Image src={userDetail?.picture} alt='user' width={30} height={30} className='rounded-full w-[30px]' onClick={toggleSidebar} />}
+          {userDetail&&<Image src={userDetail?.picture} alt='user' width={30} height={30} className='rounded-full w-[30px] cursor-pointer' onClick={toggleSidebar} />}
            </div>}
+      <SignInDialog openDialog={openDialog} closeDialog={setOpenDialog} />
     </div>
   )
 }

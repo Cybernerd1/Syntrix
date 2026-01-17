@@ -9,6 +9,7 @@ import { useMutation } from "convex/react";
 import SignInDialog from "./SignInDialog";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const Hero = () => {
   const [userInput, setUserInput] = useState("");

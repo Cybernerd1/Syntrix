@@ -5,6 +5,8 @@ import Colors from "@/data/Colors";
 import Lookup from "@/data/Lookup";
 import React, { useContext } from "react";
 
+export const dynamic = "force-dynamic";
+
 const Pricing = () => {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   
@@ -17,7 +19,7 @@ const Pricing = () => {
 
       <div className="p-5 border rounded w-full flex justify-between mt-7 items-center" style={{backgroundColor:Colors.BACKGROUND}}>
         <h2 className="text-lg text-white">
-          <span className="font-bold ">{userDetail?.token}</span>Token Left
+          <span className="font-bold ">{userDetail?.token ?? 0}</span> Token Left
         </h2>
         <div  >
           <h2 className="font-medium">Need more tokens?</h2>

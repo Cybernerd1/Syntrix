@@ -24,11 +24,13 @@ function Provider({ children }) {
   const convex = useConvex();
 
   useEffect(() => {
-    isAuthenticated();
+    if (typeof window !== 'undefined') {
+      isAuthenticated();
+    }
   }, [convex]);
 
   const isAuthenticated = async () => {
-    if (typeof window !== undefined) {
+    if (typeof window !== 'undefined') {
       const token = JSON.parse(localStorage.getItem("user"));
       if (token) {
         try {

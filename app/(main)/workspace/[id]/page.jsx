@@ -3,6 +3,8 @@ import CodeView from '@/components/custom/CodeView'
 
 import React from 'react'
 
+export const dynamic = "force-dynamic";
+
 const workspace = () => {
   return (
     <div className='p-3 pr-5 mt-3  ' >

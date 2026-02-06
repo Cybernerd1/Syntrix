@@ -1,2 +1,2 @@
 # Ignore Convex auto-deployment
-convex/_generated
+#convex/_generated

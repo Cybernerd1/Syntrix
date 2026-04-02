@@ -4,7 +4,7 @@ import Prompt from "@/data/Prompt";
 const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
 
 if (!apiKey) {
-  console.error(" NEXT_PUBLIC_GEMINI_API_KEY is not set in environment variables!");
+  console.error("NEXT_PUBLIC_GEMINI_API_KEY is not set in environment variables!");
 }
 
 const genAI = new GoogleGenerativeAI(apiKey);

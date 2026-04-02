@@ -19,6 +19,8 @@ import { countToken } from "./ChatView";
 import { UserDetailContext } from "@/context/UserDetailContext";
 import SandPackPreviewClient from "./SandPackPreviewClient";
 import { ActionContext } from "@/context/ActionContext";
+import { useModel } from "@/context/ModelContext";
+import { toast } from "sonner";
 
 const CodeView = () => {
   const { userDetail, setUserDetail } = useContext(UserDetailContext)
@@ -30,7 +32,8 @@ const CodeView = () => {
   const convex = useConvex();
   const [loading, setLoading] = useState(false)
   const UpdateTokens = useMutation(api.users.UpdateToken)
-  const { action, setAction } = useContext(ActionContext)
+  const { action, setAction } = useContext(ActionContext);
+  const { selectedModel } = useModel();
 
   useEffect(() => {
     id && GetFiles()
@@ -64,38 +67,56 @@ const CodeView = () => {
 
   const GenerateAiCode = async () => {
     setLoading(true)
-    const PROMPT = JSON.stringify(messages) + " " + Prompt.CODE_GEN_PROMPT;
-    const result = await axios.post('/api/gen-ai-code', {
-      prompt: PROMPT
-    });
-    console.log(result.data);
-    const aiResp = result.data;
+    try {
+      const PROMPT = JSON.stringify(messages) + " " + Prompt.CODE_GEN_PROMPT;
+      const result = await axios.post('/api/gen-ai-code', {
+        prompt: PROMPT,
+        modelId: selectedModel.id,
+        providerKey: selectedModel.provider_key,
+      });
+      console.log(result.data);
+      const aiResp = result.data;
 
-    const mergedFiles = { ...Lookup.DEFAULT_FILE, ...aiResp?.files }
-    setFiles(mergedFiles);
+      // Surface any API-level error
+      if (aiResp?.error) {
+        toast.error("Code generation error: " + aiResp.error);
+        setLoading(false);
+        return;
+      }
 
-    // Only update files if aiResp.files exists
-    if (aiResp?.files) {
-      await UpdateFiles({
-        workspaceId: id,
-        files: aiResp.files
-      })
+      const mergedFiles = { ...Lookup.DEFAULT_FILE, ...aiResp?.files }
+      setFiles(mergedFiles);
+
+      if (aiResp?.files) {
+        await UpdateFiles({
+          workspaceId: id,
+          files: aiResp.files
+        })
+      }
+
+      setActiveTab('preview')
+      const token =
+        Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
+
+      await UpdateTokens({
+        userId: userDetail?._id,
+        token: token,
+      });
+      setUserDetail(prev => ({
+        ...prev,
+        token: token
+      }))
+    } catch (error) {
+      // Show actual error from server if available, otherwise generic
+      const serverMsg = error?.response?.data?.error;
+      if (serverMsg) {
+        toast.error("Code gen failed: " + serverMsg);
+      } else {
+        toast.error("Code generation failed. Please restart the dev server if you just updated your API keys.");
+      }
+      console.error("GenerateAiCode error:", error);
     }
 
-    setActiveTab('code')
-    const token =
-      Number(userDetail?.token) - Number(countToken(JSON.stringify(aiResp)));
-
-    // updating the tokens in the database
-    await UpdateTokens({
-      userId: userDetail?._id,
-      token: token,
-    });
-    setUserDetail(prev => ({
-      ...prev,
-      token: token
-    }))
-    setActiveTab('code')
 
     setLoading(false)
   }
@@ -117,7 +138,8 @@ const CodeView = () => {
         }
       }}
         options={{
-          externalResources: ['https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4']
+          externalResources: ['https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'],
+          bundlerURL: 'https://sandpack-bundler.codesandbox.io',
         }}   >
         <SandpackLayout>
           {activeTab == 'code' ? (<>

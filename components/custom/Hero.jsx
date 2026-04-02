@@ -10,6 +10,7 @@ import SignInDialog from "./SignInDialog";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import ModelSelector from "./ModelSelector";
 
 const Hero = () => {
   const [userInput, setUserInput] = useState("");
@@ -63,9 +64,10 @@ const Hero = () => {
             />
           )}
         </div>
-        <div>
-          <Link className="h-5" />
-        </div>
+        <div className="flex items-center justify-between mt-2">
+            <Link className="h-5 text-gray-500" />
+            <ModelSelector />
+          </div>
       </div>
       <div className="flex mt-8 flex-wrap max-w-2xl justify-center items-center gap-3">
         {Lookup?.SUGGSTIONS.map((suggestion, index) => (

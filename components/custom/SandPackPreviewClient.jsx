@@ -28,6 +28,7 @@ const SandPackPreviewClient = () => {
       ref={previewRef}
       style={{ height: "80vh" }}
       showNavigator={true}
+      showOpenInCodeSandbox={false}
     />
   );
 };

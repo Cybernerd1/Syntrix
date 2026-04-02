@@ -15,6 +15,8 @@ import ReactMarkdown from "react-markdown";
 import Prompt from "@/data/Prompt";
 import { useSidebar } from "../ui/sidebar";
 import { toast } from "sonner";
+import { useModel } from "@/context/ModelContext";
+import ModelSelector from "./ModelSelector";
 
 export const countToken = (inputText) => {
   return inputText
@@ -32,6 +34,7 @@ const ChatView = () => {
   const [userInput, setUserInput] = useState("");
   const UpdateMessages = useMutation(api.workspace.UpdateMessages);
   const { toggleSidebar } = useSidebar();
+  const { selectedModel } = useModel();
 
   const UpdateTokens = useMutation(api.users.UpdateToken);
   // console.log("Current id from params:", id)
@@ -61,7 +64,11 @@ const ChatView = () => {
     setLoading(true);
     try {
       const PROMPT = JSON.stringify(messages) + Prompt.CHAT_PROMPT;
-      const result = await axios.post("/api/ai-chat", { prompt: PROMPT });
+      const result = await axios.post("/api/ai-chat", {
+        prompt: PROMPT,
+        modelId: selectedModel.id,
+        providerKey: selectedModel.provider_key,
+      });
       
       // Check if the response contains an error
       if (result.data.error) {
@@ -205,8 +212,9 @@ const ChatView = () => {
               />
             )}
           </div>
-          <div>
-            <Link className="h-5" />
+          <div className="flex items-center justify-between mt-2">
+            <Link className="h-5 text-gray-500" />
+            <ModelSelector />
           </div>
         </div>
       </div>

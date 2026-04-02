@@ -6,6 +6,7 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import Header from "@/components/custom/Header";
 import { MessageContext } from "@/context/MessageContext";
 import { UserDetailContext } from "@/context/UserDetailContext";
+import { ModelProvider } from "@/context/ModelContext";
 
 import { useConvex } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -55,6 +56,7 @@ function Provider({ children }) {
       clientId={process.env.NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY}
     >
       {/* 1. Nesting all data/auth contexts */}
+      <ModelProvider>
       <UserDetailContext.Provider value={{ userDetail, setUserDetail }}>
         <MessageContext.Provider value={{ messages, setMessages }}>
           {/* FIX: Ensuring correct component capitalization (.Provider) */}
@@ -90,6 +92,7 @@ function Provider({ children }) {
           </ActionContext.Provider>
         </MessageContext.Provider>
       </UserDetailContext.Provider>
+      </ModelProvider>
     </GoogleOAuthProvider>
   );
 }

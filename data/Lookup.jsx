@@ -11,6 +11,18 @@ export default {
 
 
   DEFAULT_FILE: {
+    '/App.js': {
+      code: `import React from 'react';
+import './App.css';
+
+export default function App() {
+  return (
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <h1 className="text-2xl font-bold text-gray-500">Your app will appear here...</h1>
+    </div>
+  );
+}`
+    },
     '/public/index.html': {
       code: `<!DOCTYPE html>
 <html lang="en">

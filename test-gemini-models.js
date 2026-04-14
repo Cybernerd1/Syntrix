@@ -3,10 +3,10 @@
 
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+const apiKey = process.env.GEMINI_API_KEY;
 
 if (!apiKey) {
-  console.error("❌ NEXT_PUBLIC_GEMINI_API_KEY is not set!");
+  console.error("❌ GEMINI_API_KEY is not set!");
   process.exit(1);
 }
 
@@ -15,13 +15,13 @@ const genAI = new GoogleGenerativeAI(apiKey);
 async function listModels() {
   try {
     console.log("🔍 Checking available models with your API key...\n");
-    
+
     const models = [
       "gemini-1.5-pro",
       "gemini-1.5-flash",
       "gemini-pro",
       "gemini-1.5-pro-latest",
-      "gemini-1.5-flash-latest"
+      "gemini-1.5-flash-latest",
     ];
 
     for (const modelName of models) {
@@ -30,7 +30,7 @@ async function listModels() {
         const result = await model.generateContent("Hello");
         console.log(`✅ ${modelName} - WORKS`);
       } catch (error) {
-        console.log(`❌ ${modelName} - ${error.message.split('\n')[0]}`);
+        console.log(`❌ ${modelName} - ${error.message.split("\n")[0]}`);
       }
     }
   } catch (error) {

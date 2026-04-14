@@ -14,6 +14,11 @@ Generate a Project in React. Create multiple components, organizing them in sepa
 without any third-party dependencies or libraries, except for icons from the lucide-react library, which should only be used when necessary. Available icons include: Heart, Shield, Clock, Users, Play, Home, Search, Menu, User, Settings, Mail, Bell, Calendar, Star, Upload, Download, Trash, Edit, Plus, Minus, Check, X, and ArrowRight. For example, you can import an icon as import { Heart } from "lucide-react" and use it in JSX as <Heart className="" />.
 also you can use date-fns for date format and react-chartjs-2 chart, graph library
 
+- NEVER import './App.css' or any CSS files in your components. Styling is handled exclusively via Tailwind CSS classes. If you need global styles, they are already provided.
+- Do NOT create or reference any .css files in your generated code.
+
+- Tailwind CSS is loaded via CDN, do NOT use @tailwind directives in any CSS file. Just use Tailwind utility classes directly in JSX className props.
+
 Return the response in JSON format with the following schema:
 {
   "projectTitle": "",
@@ -26,6 +31,12 @@ Return the response in JSON format with the following schema:
   },
   "generatedFiles": []
 }
+
+- When using react-chartjs-2 and chart.js, ALWAYS register all required components at the top of the file before use. Example:
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend } from 'chart.js';
+ChartJS.register(CategoryScale, LinearScale, BarElement, LineElement, PointElement, ArcElement, Title, Tooltip, Legend);
+Never use chart.js without this registration block or charts will crash with "is not a registered scale" errors.
+
 
 Here’s the reformatted and improved version of your prompt:
 
@@ -54,6 +65,8 @@ files:{
 }
   Additionally, include an explanation of the project's structure, purpose, and functionality in the explanation field. Make the response concise and clear in one paragraph.
   - When asked then only use this package to import, here are some packages available to import and use (date-fns,react-chartjs-2,"firebase","@google/generative-ai" ) only when it required
+  - Do NOT generate tailwind.config.js or postcss.config.js. We are using the Tailwind CSS CDN.
+  - Do NOT import "tailwindcss/base" or "tailwindcss" in any javascript files.
   
   - For placeholder images, please use a https://archive.org/download/placeholder-image/placeholder-image.jpg
   -Add Emoji icons whenever needed to give good user experinence

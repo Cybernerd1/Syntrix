@@ -12,7 +12,6 @@ import axios from 'axios'
 import { UserDetailContext } from '@/context/UserDetailContext'
 import { useContext } from 'react'
 import { useMutation } from 'convex/react'
-import uuid4 from 'uuid4'
 import { api } from '@/convex/_generated/api'
 import { useConvex } from 'convex/react'
 
@@ -35,7 +34,7 @@ const SignInDialog = ({ openDialog, closeDialog }) => {
             const user = userInfo.data
 
             // Create or update user in Convex
-            await CreateUser({ name: user?.name, email: user?.email, picture: user?.picture, uid: uuid4() })
+            await CreateUser({ name: user?.name, email: user?.email, picture: user?.picture, uid: crypto.randomUUID() })
 
             // Fetch the complete user object from Convex (including _id)
             const convexUser = await convex.query(api.users.getUsers, {

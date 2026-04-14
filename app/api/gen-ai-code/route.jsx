@@ -16,7 +16,7 @@ function extractJSON(raw) {
   // 2. Try direct parse first (fast path)
   try {
     return JSON.parse(text);
-  } catch (_) {}
+  } catch (_) { }
 
   // 3. Find the outermost { ... } block in the text
   const start = text.indexOf("{");
@@ -24,7 +24,7 @@ function extractJSON(raw) {
   if (start !== -1 && end !== -1 && end > start) {
     try {
       return JSON.parse(text.slice(start, end + 1));
-    } catch (_) {}
+    } catch (_) { }
   }
 
   // 4. Last resort: throw with the raw snippet so the error is meaningful
@@ -35,8 +35,9 @@ function extractJSON(raw) {
 
 // ── Gemini code gen handler ─────────────────────────────────────
 async function handleGemini(prompt, modelId) {
-  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-  if (!apiKey) throw new Error("NEXT_PUBLIC_GEMINI_API_KEY is not set");
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY is not set");
+  console.log("API KEY:", process.env.GEMINI_API_KEY);
 
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: modelId });

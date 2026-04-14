@@ -4,8 +4,8 @@ import axios from "axios";
 
 // ── Gemini handler ──────────────────────────────────────────────
 async function handleGemini(prompt, modelId) {
-  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-  if (!apiKey) throw new Error("NEXT_PUBLIC_GEMINI_API_KEY is not set");
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new Error("GEMINI_API_KEY is not set");
 
   const genAI = new GoogleGenerativeAI(apiKey);
   const model = genAI.getGenerativeModel({ model: modelId });

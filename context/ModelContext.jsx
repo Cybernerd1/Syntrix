@@ -52,7 +52,7 @@ export const AVAILABLE_MODELS = [
 export const ModelContext = createContext();
 
 export const ModelProvider = ({ children }) => {
-  const [selectedModel, setSelectedModel] = useState(AVAILABLE_MODELS[0]);
+  const [selectedModel, setSelectedModel] = useState(AVAILABLE_MODELS[2]);
 
   return (
     <ModelContext.Provider value={{ selectedModel, setSelectedModel }}>

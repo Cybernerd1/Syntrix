@@ -44,57 +44,64 @@ The application is analogous to tools like Bolt.new or v0.dev — a natural lang
 ## 2. Tech Stack
 
 ### Frontend
-| Technology | Version | Purpose |
-|---|---|---|
-| **Next.js** | ^16.1.6 | Full-stack React framework (App Router) |
-| **React** | 19.1.0 | UI rendering |
-| **TailwindCSS** | ^4 | Utility-first CSS styling |
-| **tw-animate-css** | ^1.4.0 | Animation utilities for Tailwind |
-| **next-themes** | ^0.4.6 | Dark/Light theme switching |
-| **lucide-react** | ^0.544.0 | Icon library |
-| **react-markdown** | ^10.1.0 | Render AI markdown responses in chat |
-| **sonner** | ^2.0.7 | Toast notification library |
+
+| Technology         | Version  | Purpose                                 |
+| ------------------ | -------- | --------------------------------------- |
+| **Next.js**        | ^16.1.6  | Full-stack React framework (App Router) |
+| **React**          | 19.1.0   | UI rendering                            |
+| **TailwindCSS**    | ^4       | Utility-first CSS styling               |
+| **tw-animate-css** | ^1.4.0   | Animation utilities for Tailwind        |
+| **next-themes**    | ^0.4.6   | Dark/Light theme switching              |
+| **lucide-react**   | ^0.544.0 | Icon library                            |
+| **react-markdown** | ^10.1.0  | Render AI markdown responses in chat    |
+| **sonner**         | ^2.0.7   | Toast notification library              |
 
 ### AI / Generation
-| Technology | Version | Purpose |
-|---|---|---|
-| **@google/generative-ai** | ^0.24.1 | Google Gemini AI SDK |
-| **@google/genai** | ^1.22.0 | Newer Google GenAI SDK |
-| **dedent** | ^1.7.0 | Clean up indented template strings for prompts |
+
+| Technology                | Version | Purpose                                        |
+| ------------------------- | ------- | ---------------------------------------------- |
+| **@google/generative-ai** | ^0.24.1 | Google Gemini AI SDK                           |
+| **@google/genai**         | ^1.22.0 | Newer Google GenAI SDK                         |
+| **dedent**                | ^1.7.0  | Clean up indented template strings for prompts |
 
 ### Database & Backend
-| Technology | Version | Purpose |
-|---|---|---|
+
+| Technology | Version | Purpose                                           |
+| ---------- | ------- | ------------------------------------------------- |
 | **Convex** | ^1.31.7 | Serverless real-time database + backend functions |
 
 ### Authentication
-| Technology | Version | Purpose |
-|---|---|---|
-| **@react-oauth/google** | ^0.12.2 | Google OAuth 2.0 authentication |
-| **uuid4** | ^2.0.3 | Generate unique user IDs |
-| **axios** | ^1.12.2 | HTTP client (Google OAuth userinfo fetch) |
+
+| Technology              | Version | Purpose                                   |
+| ----------------------- | ------- | ----------------------------------------- |
+| **@react-oauth/google** | ^0.12.2 | Google OAuth 2.0 authentication           |
+| **uuid4**               | ^2.0.3  | Generate unique user IDs                  |
+| **axios**               | ^1.12.2 | HTTP client (Google OAuth userinfo fetch) |
 
 ### Code Sandbox / Preview
-| Technology | Version | Purpose |
-|---|---|---|
+
+| Technology                      | Version | Purpose                               |
+| ------------------------------- | ------- | ------------------------------------- |
 | **@codesandbox/sandpack-react** | ^2.20.0 | In-browser code editor + live preview |
 
 ### UI Component Library (Radix UI Primitives)
-| Technology | Version | Purpose |
-|---|---|---|
-| **@radix-ui/react-dialog** | ^1.1.15 | Modal/Dialog component |
-| **@radix-ui/react-separator** | ^1.1.7 | Separator component |
-| **@radix-ui/react-slot** | ^1.2.3 | Polymorphic component slot |
-| **@radix-ui/react-tooltip** | ^1.2.8 | Tooltip component |
-| **class-variance-authority** | ^0.7.1 | Type-safe component variants |
-| **clsx** | ^2.1.1 | Conditional class name utility |
-| **tailwind-merge** | ^3.3.1 | Merge conflicting Tailwind classes |
+
+| Technology                    | Version | Purpose                            |
+| ----------------------------- | ------- | ---------------------------------- |
+| **@radix-ui/react-dialog**    | ^1.1.15 | Modal/Dialog component             |
+| **@radix-ui/react-separator** | ^1.1.7  | Separator component                |
+| **@radix-ui/react-slot**      | ^1.2.3  | Polymorphic component slot         |
+| **@radix-ui/react-tooltip**   | ^1.2.8  | Tooltip component                  |
+| **class-variance-authority**  | ^0.7.1  | Type-safe component variants       |
+| **clsx**                      | ^2.1.1  | Conditional class name utility     |
+| **tailwind-merge**            | ^3.3.1  | Merge conflicting Tailwind classes |
 
 ### Dev Dependencies
-| Technology | Version | Purpose |
-|---|---|---|
-| **@tailwindcss/postcss** | ^4 | PostCSS plugin for TailwindCSS v4 |
-| **tailwindcss** | ^4 | CSS framework |
+
+| Technology               | Version | Purpose                           |
+| ------------------------ | ------- | --------------------------------- |
+| **@tailwindcss/postcss** | ^4      | PostCSS plugin for TailwindCSS v4 |
+| **tailwindcss**          | ^4      | CSS framework                     |
 
 ---
 
@@ -238,13 +245,13 @@ e:/projects/Syntrix/
 
 ### Key Architectural Decisions
 
-| Decision | Rationale |
-|---|---|
-| **Next.js App Router** | Server components, API routes, and file-based routing in one framework |
-| **Convex** | Real-time database with built-in reactivity; no separate backend server needed |
-| **Google OAuth only** | Simplifies auth — no passwords to manage |
-| **Token-based usage** | Controls AI usage cost; deducted per AI response |
-| **Sandpack in-browser** | No Docker or external VM needed for code preview |
+| Decision                | Rationale                                                                      |
+| ----------------------- | ------------------------------------------------------------------------------ |
+| **Next.js App Router**  | Server components, API routes, and file-based routing in one framework         |
+| **Convex**              | Real-time database with built-in reactivity; no separate backend server needed |
+| **Google OAuth only**   | Simplifies auth — no passwords to manage                                       |
+| **Token-based usage**   | Controls AI usage cost; deducted per AI response                               |
+| **Sandpack in-browser** | No Docker or external VM needed for code preview                               |
 
 ---
 
@@ -415,6 +422,7 @@ SandPackPreviewClient: useEffect triggers GetSandpackClient()
 Sends a message to the Gemini chat model and returns a text response.
 
 **Request Body:**
+
 ```json
 {
   "prompt": "<stringified_messages_array> + CHAT_PROMPT_suffix"
@@ -422,6 +430,7 @@ Sends a message to the Gemini chat model and returns a text response.
 ```
 
 **Success Response (200):**
+
 ```json
 {
   "result": "I'll build a Todo app for you using React with the following structure..."
@@ -429,6 +438,7 @@ Sends a message to the Gemini chat model and returns a text response.
 ```
 
 **Error Response (500):**
+
 ```json
 {
   "error": "Error message from Gemini API"
@@ -437,7 +447,7 @@ Sends a message to the Gemini chat model and returns a text response.
 
 **Model Used:** `gemini-1.5-flash`  
 **Response MIME type:** `text/plain`  
-**Temperature:** 1 | **TopP:** 0.95 | **TopK:** 40 | **Max Tokens:** 8192  
+**Temperature:** 1 | **TopP:** 0.95 | **TopK:** 40 | **Max Tokens:** 8192
 
 ---
 
@@ -446,6 +456,7 @@ Sends a message to the Gemini chat model and returns a text response.
 Sends a code generation prompt to Gemini and returns structured JSON with project files.
 
 **Request Body:**
+
 ```json
 {
   "prompt": "<stringified_messages_array> + CODE_GEN_PROMPT_suffix"
@@ -453,6 +464,7 @@ Sends a code generation prompt to Gemini and returns structured JSON with projec
 ```
 
 **Success Response (200):**
+
 ```json
 {
   "projectTitle": "Todo App",
@@ -466,6 +478,7 @@ Sends a code generation prompt to Gemini and returns structured JSON with projec
 ```
 
 **Error Response (500):**
+
 ```json
 {
   "error": "Error message from Gemini API"
@@ -474,7 +487,7 @@ Sends a code generation prompt to Gemini and returns structured JSON with projec
 
 **Model Used:** `gemini-1.5-flash`  
 **Response MIME type:** `application/json`  
-**Temperature:** 1 | **TopP:** 0.95 | **TopK:** 40 | **Max Tokens:** 8192  
+**Temperature:** 1 | **TopP:** 0.95 | **TopK:** 40 | **Max Tokens:** 8192
 
 ---
 
@@ -482,25 +495,25 @@ Sends a code generation prompt to Gemini and returns structured JSON with projec
 
 ### `users` Table
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `_id` | `Id<"users">` | Auto | Convex document ID |
-| `name` | `string` | ✅ | User's display name from Google |
-| `email` | `string` | ✅ | Google account email (unique key) |
-| `picture` | `string` | ✅ | Google profile picture URL |
-| `uid` | `string` | ✅ | UUID v4 for the user |
-| `token` | `number` | Optional | Remaining AI usage tokens (default: 50,000) |
-| `_creationTime` | `number` | Auto | Convex creation timestamp |
+| Field           | Type          | Required | Description                                 |
+| --------------- | ------------- | -------- | ------------------------------------------- |
+| `_id`           | `Id<"users">` | Auto     | Convex document ID                          |
+| `name`          | `string`      | ✅       | User's display name from Google             |
+| `email`         | `string`      | ✅       | Google account email (unique key)           |
+| `picture`       | `string`      | ✅       | Google profile picture URL                  |
+| `uid`           | `string`      | ✅       | UUID v4 for the user                        |
+| `token`         | `number`      | Optional | Remaining AI usage tokens (default: 50,000) |
+| `_creationTime` | `number`      | Auto     | Convex creation timestamp                   |
 
 ### `workspace` Table
 
-| Field | Type | Required | Description |
-|---|---|---|---|
-| `_id` | `Id<"workspace">` | Auto | Convex document ID |
-| `messages` | `any` (JSON) | ✅ | Array of `{ role: 'user' | 'ai', content: string }` |
-| `fileData` | `any` (JSON) | Optional | Generated file map `{ "/App.js": { code: "..." } }` |
-| `user` | `Id<"users">` | ✅ | Reference to the owning user |
-| `_creationTime` | `number` | Auto | Convex creation timestamp |
+| Field           | Type              | Required | Description                                         |
+| --------------- | ----------------- | -------- | --------------------------------------------------- | ------------------------ |
+| `_id`           | `Id<"workspace">` | Auto     | Convex document ID                                  |
+| `messages`      | `any` (JSON)      | ✅       | Array of `{ role: 'user'                            | 'ai', content: string }` |
+| `fileData`      | `any` (JSON)      | Optional | Generated file map `{ "/App.js": { code: "..." } }` |
+| `user`          | `Id<"users">`     | ✅       | Reference to the owning user                        |
+| `_creationTime` | `number`          | Auto     | Convex creation timestamp                           |
 
 ---
 
@@ -509,10 +522,12 @@ Sends a code generation prompt to Gemini and returns structured JSON with projec
 ### Users (`convex/users.js`)
 
 #### `createUser` — Mutation
+
 Creates a new user or patches an existing one with a default token if missing.
 
 **Args:** `{ name: string, email: string, picture: string, uid: string }`  
 **Behavior:**
+
 - If email **not found**: inserts user with `token: 50000`
 - If email **found** but `token` is undefined: patches with `token: 50000`
 - If email **found** with token: no-op
@@ -520,6 +535,7 @@ Creates a new user or patches an existing one with a default token if missing.
 ---
 
 #### `getUsers` — Query
+
 Fetches a single user by email.
 
 **Args:** `{ email: string }`  
@@ -528,6 +544,7 @@ Fetches a single user by email.
 ---
 
 #### `getUserByUid` — Query
+
 Fetches a user by their UUID.
 
 **Args:** `{ uid: string }`  
@@ -536,6 +553,7 @@ Fetches a user by their UUID.
 ---
 
 #### `UpdateToken` — Mutation
+
 Updates the token count for a user.
 
 **Args:** `{ userId: Id<"users">, token: number }`  
@@ -546,6 +564,7 @@ Updates the token count for a user.
 ### Workspace (`convex/workspace.js`)
 
 #### `CreateWorkspace` — Mutation
+
 Creates a new workspace record.
 
 **Args:** `{ messages: any, user: Id<"users"> }`  
@@ -554,6 +573,7 @@ Creates a new workspace record.
 ---
 
 #### `GetWorkspace` — Query
+
 Fetches a single workspace by ID.
 
 **Args:** `{ workspaceId: Id<"workspace"> }`  
@@ -562,6 +582,7 @@ Fetches a single workspace by ID.
 ---
 
 #### `UpdateMessages` — Mutation
+
 Persists the updated messages array to a workspace.
 
 **Args:** `{ workspaceId: Id<"workspace">, messages: any }`  
@@ -570,6 +591,7 @@ Persists the updated messages array to a workspace.
 ---
 
 #### `UpdateFiles` — Mutation
+
 Persists generated file data to a workspace.
 
 **Args:** `{ workspaceId: Id<"workspace">, files: any }`  
@@ -578,6 +600,7 @@ Persists generated file data to a workspace.
 ---
 
 #### `GetAllWorkspace` — Query
+
 Lists all workspaces belonging to a user (for sidebar history).
 
 **Args:** `{ userId: Id<"users"> }`  
@@ -590,13 +613,15 @@ Lists all workspaces belonging to a user (for sidebar history).
 ### Custom Components
 
 #### `Hero` (`components/custom/Hero.jsx`)
+
 The landing page main section.
 
-| Prop | Type | Description |
-|---|---|---|
-| *(none)* | — | Self-contained, uses contexts |
+| Prop     | Type | Description                   |
+| -------- | ---- | ----------------------------- |
+| _(none)_ | —    | Self-contained, uses contexts |
 
 **Features:**
+
 - Text area for user prompt input
 - Suggestion chips (clickable quick-start prompts)
 - Creates a new workspace and navigates to it
@@ -606,9 +631,11 @@ The landing page main section.
 ---
 
 #### `Header` (`components/custom/Header.jsx`)
+
 Top navigation bar, persistent across all pages.
 
 **Features:**
+
 - App logo (links to `/`)
 - **Unauthenticated:** Sign In + Get Started buttons
 - **Authenticated on workspace:** Export + Deploy buttons + user avatar
@@ -618,29 +645,31 @@ Top navigation bar, persistent across all pages.
 ---
 
 #### `ChatView` (`components/custom/ChatView.jsx`)
+
 Left panel of the workspace page — handles the conversation.
 
 **Key Functions:**
 
-| Function | Description |
-|---|---|
-| `GetWorkspaceData()` | Loads messages from Convex on workspace load |
-| `GenAiResponse()` | Calls `/api/ai-chat`, appends AI reply, deducts tokens |
-| `onGenerate(input)` | Appends user message to state (triggers GenAiResponse via useEffect) |
-| `countToken(text)` | Counts words in a string (used for token deduction estimate) |
+| Function             | Description                                                          |
+| -------------------- | -------------------------------------------------------------------- |
+| `GetWorkspaceData()` | Loads messages from Convex on workspace load                         |
+| `GenAiResponse()`    | Calls `/api/ai-chat`, appends AI reply, deducts tokens               |
+| `onGenerate(input)`  | Appends user message to state (triggers GenAiResponse via useEffect) |
+| `countToken(text)`   | Counts words in a string (used for token deduction estimate)         |
 
 **Exported:** `countToken` — also used by `CodeView`
 
 ---
 
 #### `CodeView` (`components/custom/CodeView.jsx`)
+
 Right panel of the workspace page — manages the Sandpack editor & code generation.
 
 **Key Functions:**
 
-| Function | Description |
-|---|---|
-| `GetFiles()` | Loads existing fileData from Convex |
+| Function           | Description                                                            |
+| ------------------ | ---------------------------------------------------------------------- |
+| `GetFiles()`       | Loads existing fileData from Convex                                    |
 | `GenerateAiCode()` | Calls `/api/gen-ai-code`, merges files, updates Convex, deducts tokens |
 
 **Tabs:** `code` (file explorer + editor) | `preview` (live browser preview)
@@ -648,9 +677,11 @@ Right panel of the workspace page — manages the Sandpack editor & code generat
 ---
 
 #### `SandPackPreviewClient` (`components/custom/SandPackPreviewClient.jsx`)
+
 Wraps Sandpack's `SandpackPreview` and handles deploy/export via `ActionContext`.
 
 **Features:**
+
 - Listens to `ActionContext.action` changes
 - On `deploy`: opens `{sandboxId}.csb.app/`
 - On `export`: opens CodeSandbox editor URL
@@ -658,9 +689,11 @@ Wraps Sandpack's `SandpackPreview` and handles deploy/export via `ActionContext`
 ---
 
 #### `AppSideBar` (`components/custom/AppSideBar.jsx`)
+
 Left slideable sidebar.
 
 **Contains:**
+
 - App logo
 - "Start new chat" button
 - `WorkspaceHistory` — list of past workspaces
@@ -669,6 +702,7 @@ Left slideable sidebar.
 ---
 
 #### `WorkspaceHistory` (`components/custom/WorkspaceHistory.jsx`)
+
 Lists all workspaces for the logged-in user.
 
 - Fetches via `GetAllWorkspace` Convex query
@@ -678,21 +712,24 @@ Lists all workspaces for the logged-in user.
 ---
 
 #### `SideBarFooter` (`components/custom/SideBarFooter.jsx`)
+
 Bottom navigation in the sidebar.
 
-| Option | Action |
-|---|---|
-| Settings | router.push (no path defined yet) |
-| Help Center | router.push (no path defined yet) |
-| My Subscription | `/pricing` |
-| Sign Out | router.push (no path defined yet) |
+| Option          | Action                            |
+| --------------- | --------------------------------- |
+| Settings        | router.push (no path defined yet) |
+| Help Center     | router.push (no path defined yet) |
+| My Subscription | `/pricing`                        |
+| Sign Out        | router.push (no path defined yet) |
 
 ---
 
 #### `SignInDialog` (`components/custom/SignInDialog.jsx`)
+
 Google OAuth sign-in modal.
 
 **Flow:**
+
 1. Opens on demand (Hero or Header)
 2. `useGoogleLogin` initiates Google OAuth
 3. Fetches user profile from Google APIs
@@ -702,13 +739,14 @@ Google OAuth sign-in modal.
 ---
 
 #### `PricingModel` (`components/custom/PricingModel.jsx`)
+
 Displays a grid of pricing plan cards from `Lookup.PRICING_OPTIONS`.
 
-| Plan | Tokens | Price |
-|---|---|---|
-| Basic | 50K | $4.99 |
-| Starter | 120K | $9.99 |
-| Pro | 2.5M | $19.99 |
+| Plan                | Tokens    | Price  |
+| ------------------- | --------- | ------ |
+| Basic               | 50K       | $4.99  |
+| Starter             | 120K      | $9.99  |
+| Pro                 | 2.5M      | $19.99 |
 | Unlimited (License) | Unlimited | $49.99 |
 
 > ⚠️ **Note:** Payment integration is not yet implemented. Buttons are placeholders.
@@ -719,17 +757,17 @@ Displays a grid of pricing plan cards from `Lookup.PRICING_OPTIONS`.
 
 These are shadcn/ui-style components built on Radix UI primitives.
 
-| Component | Source | Description |
-|---|---|---|
-| `button.jsx` | CVA + Radix Slot | Button variants: `default`, `destructive`, `outline`, `secondary`, `ghost`, `link` |
-| `dialog.jsx` | Radix Dialog | Accessible modal dialog |
-| `input.jsx` | HTML input | Styled text input |
-| `separator.jsx` | Radix Separator | Visual horizontal/vertical divider |
-| `sheet.jsx` | Radix Dialog | Slide-in panel from sides |
-| `sidebar.jsx` | shadcn Sidebar | Full sidebar system with mobile support |
-| `skeleton.jsx` | Styled div | Loading placeholder |
-| `sonner.jsx` | Sonner + next-themes | Themed toast notifications |
-| `tooltip.jsx` | Radix Tooltip | Hover tooltip |
+| Component       | Source               | Description                                                                        |
+| --------------- | -------------------- | ---------------------------------------------------------------------------------- |
+| `button.jsx`    | CVA + Radix Slot     | Button variants: `default`, `destructive`, `outline`, `secondary`, `ghost`, `link` |
+| `dialog.jsx`    | Radix Dialog         | Accessible modal dialog                                                            |
+| `input.jsx`     | HTML input           | Styled text input                                                                  |
+| `separator.jsx` | Radix Separator      | Visual horizontal/vertical divider                                                 |
+| `sheet.jsx`     | Radix Dialog         | Slide-in panel from sides                                                          |
+| `sidebar.jsx`   | shadcn Sidebar       | Full sidebar system with mobile support                                            |
+| `skeleton.jsx`  | Styled div           | Loading placeholder                                                                |
+| `sonner.jsx`    | Sonner + next-themes | Themed toast notifications                                                         |
+| `tooltip.jsx`   | Radix Tooltip        | Hover tooltip                                                                      |
 
 ---
 
@@ -739,12 +777,13 @@ Syntrix uses React Context API (no Redux). All contexts are provided in `app/pro
 
 ### `UserDetailContext`
 
-| Key | Type | Description |
-|---|---|---|
-| `userDetail` | `object \| undefined` | Full Convex user document |
-| `setUserDetail` | `function` | Update user state |
+| Key             | Type                  | Description               |
+| --------------- | --------------------- | ------------------------- |
+| `userDetail`    | `object \| undefined` | Full Convex user document |
+| `setUserDetail` | `function`            | Update user state         |
 
 **userDetail shape:**
+
 ```json
 {
   "_id": "j57abc...",
@@ -762,12 +801,13 @@ Syntrix uses React Context API (no Redux). All contexts are provided in `app/pro
 
 ### `MessageContext`
 
-| Key | Type | Description |
-|---|---|---|
-| `messages` | `array \| undefined` | Current workspace chat messages |
-| `setMessages` | `function` | Update messages |
+| Key           | Type                 | Description                     |
+| ------------- | -------------------- | ------------------------------- |
+| `messages`    | `array \| undefined` | Current workspace chat messages |
+| `setMessages` | `function`           | Update messages                 |
 
 **Message shape:**
+
 ```json
 { "role": "user" | "ai", "content": "string" }
 ```
@@ -776,12 +816,13 @@ Syntrix uses React Context API (no Redux). All contexts are provided in `app/pro
 
 ### `ActionContext`
 
-| Key | Type | Description |
-|---|---|---|
-| `action` | `object \| undefined` | Current triggered header action |
-| `setAction` | `function` | Trigger an action |
+| Key         | Type                  | Description                     |
+| ----------- | --------------------- | ------------------------------- |
+| `action`    | `object \| undefined` | Current triggered header action |
+| `setAction` | `function`            | Trigger an action               |
 
 **Action shape:**
+
 ```json
 { "actionType": "deploy" | "export", "timestamps": 1700000000000 }
 ```
@@ -819,7 +860,10 @@ Syntrix uses a **word-count-based token system** to track and limit AI usage.
 
 ```javascript
 export const countToken = (inputText) => {
-  return inputText.trim().split(/\s+/).filter(word => word).length;
+  return inputText
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word).length;
 };
 ```
 
@@ -835,7 +879,7 @@ export const countToken = (inputText) => {
 
 ```javascript
 if (userDetail?.token < 10) {
-  toast('You dont have enough token!');
+  toast("You dont have enough token!");
   return;
 }
 ```
@@ -851,9 +895,9 @@ if (userDetail?.token < 10) {
 
 ### Models Used
 
-| Use Case | Model | Response Format |
-|---|---|---|
-| Chat responses | `gemini-1.5-flash` | `text/plain` |
+| Use Case        | Model              | Response Format    |
+| --------------- | ------------------ | ------------------ |
+| Chat responses  | `gemini-1.5-flash` | `text/plain`       |
 | Code generation | `gemini-1.5-flash` | `application/json` |
 
 > `AiModel.jsx` references `gemini-3-flash-preview` but `AiModel.js` (used by API routes) uses `gemini-1.5-flash`.
@@ -871,6 +915,7 @@ GUIDELINES:
 ### Code Generation System Prompt (`CODE_GEN_PROMPT`)
 
 The code generation prompt instructs Gemini to:
+
 - Generate a complete React + Vite project
 - Use **Tailwind CSS** for all styling
 - Use only `lucide-react` for icons (specific icon list provided)
@@ -926,20 +971,22 @@ Syntrix uses **Sandpack by CodeSandbox** to render generated React code live in 
 
 ```jsx
 <SandpackProvider
-  files={files}           // Generated file map from AI
-  template="react"        // React template
+  files={files} // Generated file map from AI
+  template="react" // React template
   theme="dark"
   customSetup={{ dependencies: Lookup.DEPENDANCY }}
-  options={{ externalResources: ['https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'] }}
+  options={{
+    externalResources: ["https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"],
+  }}
 >
   <SandpackLayout>
-    {activeTab == 'code' ? (
+    {activeTab == "code" ? (
       <>
         <SandpackFileExplorer style={{ height: "80vh" }} />
         <SandpackCodeEditor style={{ height: "80vh" }} />
       </>
     ) : (
-      <SandPackPreviewClient />  // Live browser preview
+      <SandPackPreviewClient /> // Live browser preview
     )}
   </SandpackLayout>
 </SandpackProvider>
@@ -947,12 +994,12 @@ Syntrix uses **Sandpack by CodeSandbox** to render generated React code live in 
 
 ### Default Files (Always Present)
 
-| File | Content |
-|---|---|
-| `/public/index.html` | HTML shell with Tailwind CDN |
-| `/App.css` | Tailwind base/components/utilities |
-| `/tailwind.config.js` | Tailwind config for src files |
-| `/postcss.config.js` | PostCSS setup |
+| File                  | Content                            |
+| --------------------- | ---------------------------------- |
+| `/public/index.html`  | HTML shell with Tailwind CDN       |
+| `/App.css`            | Tailwind base/components/utilities |
+| `/tailwind.config.js` | Tailwind config for src files      |
+| `/postcss.config.js`  | PostCSS setup                      |
 
 AI-generated files are **merged on top** of these defaults.
 
@@ -962,12 +1009,12 @@ AI-generated files are **merged on top** of these defaults.
 
 ### Route Map
 
-| URL | File | Description |
-|---|---|---|
-| `/` | `app/page.js` | Landing page with Hero component |
-| `/workspace/[id]` | `app/(main)/workspace/[id]/page.jsx` | Workspace (chat + code editor) |
-| `/pricing` | `app/(main)/pricing/page.jsx` | Pricing plans page |
-| `*` (any unknown) | `app/not-found.jsx` | Custom 404 page |
+| URL               | File                                 | Description                      |
+| ----------------- | ------------------------------------ | -------------------------------- |
+| `/`               | `app/page.js`                        | Landing page with Hero component |
+| `/workspace/[id]` | `app/(main)/workspace/[id]/page.jsx` | Workspace (chat + code editor)   |
+| `/pricing`        | `app/(main)/pricing/page.jsx`        | Pricing plans page               |
+| `*` (any unknown) | `app/not-found.jsx`                  | Custom 404 page                  |
 
 ### Route Group `(main)`
 
@@ -976,6 +1023,7 @@ The `(main)` folder is a Next.js **route group** — it organizes files without 
 ### Dynamic Routing
 
 `/workspace/[id]` — The `[id]` is the Convex document ID of the workspace. It's used to:
+
 1. Fetch workspace messages on load (`GetWorkspaceData`)
 2. Fetch existing generated files (`GetFiles`)
 3. Persist updates (`UpdateMessages`, `UpdateFiles`)
@@ -986,33 +1034,33 @@ The `(main)` folder is a Next.js **route group** — it organizes files without 
 
 ### `data/Colors.jsx`
 
-| Token | Value | Usage |
-|---|---|---|
-| `LABEL` | `#a3a3a3` | Label text color |
-| `SUBHEADING` | `#d1d5db` | Subheading text color |
-| `BACKGROUND` | `#151515` | Dark panel backgrounds |
-| `BLUE` | `#2ba6ff` | Accent / brand blue |
+| Token             | Value     | Usage                          |
+| ----------------- | --------- | ------------------------------ |
+| `LABEL`           | `#a3a3a3` | Label text color               |
+| `SUBHEADING`      | `#d1d5db` | Subheading text color          |
+| `BACKGROUND`      | `#151515` | Dark panel backgrounds         |
+| `BLUE`            | `#2ba6ff` | Accent / brand blue            |
 | `CHAT_BACKGROUND` | `#272727` | Chat message bubble background |
 
 ### `data/Lookup.jsx` (key constants)
 
-| Key | Description |
-|---|---|
-| `SUGGSTIONS` | 5 preset prompt examples on the Hero page |
-| `HERO_HEADING` | `"What do you want to build?"` |
-| `HERO_DESC` | `"Prompt, run, edit, and deploy full-stack web apps."` |
-| `INPUT_PLACEHOLDER` | `"What you want to build?"` |
-| `SIGNIN_HEADING` | `"Continue With SyntriX"` |
-| `DEFAULT_FILE` | Sandpack template files (HTML, CSS, Tailwind config) |
-| `DEPENDANCY` | npm packages available in Sandpack environment |
-| `PRICING_DESC` | Pricing page description text |
-| `PRICING_OPTIONS` | Array of 4 pricing tiers |
+| Key                 | Description                                            |
+| ------------------- | ------------------------------------------------------ |
+| `SUGGSTIONS`        | 5 preset prompt examples on the Hero page              |
+| `HERO_HEADING`      | `"What do you want to build?"`                         |
+| `HERO_DESC`         | `"Prompt, run, edit, and deploy full-stack web apps."` |
+| `INPUT_PLACEHOLDER` | `"What you want to build?"`                            |
+| `SIGNIN_HEADING`    | `"Continue With SyntriX"`                              |
+| `DEFAULT_FILE`      | Sandpack template files (HTML, CSS, Tailwind config)   |
+| `DEPENDANCY`        | npm packages available in Sandpack environment         |
+| `PRICING_DESC`      | Pricing page description text                          |
+| `PRICING_OPTIONS`   | Array of 4 pricing tiers                               |
 
 ### `data/Prompt.jsx`
 
-| Key | Description |
-|---|---|
-| `CHAT_PROMPT` | System prompt appended to all chat requests |
+| Key               | Description                                                         |
+| ----------------- | ------------------------------------------------------------------- |
+| `CHAT_PROMPT`     | System prompt appended to all chat requests                         |
 | `CODE_GEN_PROMPT` | Full system prompt for code generation (defines output JSON schema) |
 
 ---
@@ -1020,6 +1068,7 @@ The `(main)` folder is a Next.js **route group** — it organizes files without 
 ## 17. Roadmap
 
 ### ✅ Completed Features
+
 - [x] Google OAuth sign-in/sign-up
 - [x] Landing page with prompt input and suggestions
 - [x] Workspace creation with unique URLs
@@ -1039,6 +1088,7 @@ The `(main)` folder is a Next.js **route group** — it organizes files without 
 - [x] 404 Not Found page
 
 ### 🚧 In Progress / Partial
+
 - [ ] Sign Out functionality (button exists, logic not wired)
 - [ ] Settings page (button exists, no route)
 - [ ] Help Center page (button exists, no route)
@@ -1047,6 +1097,7 @@ The `(main)` folder is a Next.js **route group** — it organizes files without 
 ### 📋 Planned Features (Roadmap)
 
 #### Phase 1 – Core Polish
+
 - [ ] **Sign Out:** Clear localStorage and redirect to `/`
 - [ ] **Token purchase:** Integrate Stripe or Razorpay with pricing plans
 - [ ] **Settings page:** User profile, API key management
@@ -1054,6 +1105,7 @@ The `(main)` folder is a Next.js **route group** — it organizes files without 
 - [ ] **Prompt history in chat:** Render original prompt at top of chat
 
 #### Phase 2 – UX Enhancement
+
 - [ ] **Chat streaming:** Stream AI responses token-by-token for better UX
 - [ ] **Code diff view:** Show what changed between generations
 - [ ] **Multiple files tab UI:** Better file navigation in workspace
@@ -1062,6 +1114,7 @@ The `(main)` folder is a Next.js **route group** — it organizes files without 
 - [ ] **Workspace delete:** Remove old workspaces from history
 
 #### Phase 3 – Advanced Features
+
 - [ ] **Multi-framework support:** Vue, Svelte, Vanilla JS templates in Sandpack
 - [ ] **Image uploads in chat:** Multimodal prompts
 - [ ] **Collaborative workspaces:** Share workspace URL with others
@@ -1071,6 +1124,7 @@ The `(main)` folder is a Next.js **route group** — it organizes files without 
 - [ ] **NPM package installer:** Let users add custom packages to Sandpack
 
 #### Phase 4 – Platform
+
 - [ ] **Admin dashboard:** Usage analytics, user management
 - [ ] **API access:** Let developers call Syntrix programmatically
 - [ ] **Workspace templates:** Start from pre-built app templates
@@ -1084,7 +1138,7 @@ Create `.env.local` in the project root:
 
 ```env
 # Google Gemini AI
-NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 
 # Google OAuth
 NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY=your_google_client_id_here
@@ -1094,11 +1148,12 @@ NEXT_PUBLIC_CONVEX_URL=https://your-convex-deployment.convex.cloud
 ```
 
 ### Getting API Keys:
-| Key | Where to get |
-|---|---|
-| `NEXT_PUBLIC_GEMINI_API_KEY` | [Google AI Studio](https://aistudio.google.com/app/apikey) |
+
+| Key                                     | Where to get                                                                              |
+| --------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `GEMINI_API_KEY`                        | [Google AI Studio](https://aistudio.google.com/app/apikey)                                |
 | `NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY` | [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → Credentials |
-| `NEXT_PUBLIC_CONVEX_URL` | Run `npx convex dev` and copy the deployment URL |
+| `NEXT_PUBLIC_CONVEX_URL`                | Run `npx convex dev` and copy the deployment URL                                          |
 
 ---
 
@@ -1141,4 +1196,4 @@ See `DEPLOYMENT_GUIDE.md` for detailed instructions.
 
 ---
 
-*Documentation generated for Syntrix v0.1.0 · February 2026*
+_Documentation generated for Syntrix v0.1.0 · February 2026_

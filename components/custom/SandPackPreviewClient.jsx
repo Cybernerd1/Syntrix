@@ -4,20 +4,23 @@ import { ActionContext } from "@/context/ActionContext";
 const SandPackPreviewClient = () => {
   const previewRef = useRef();
   const { sandpack } = useSandpack();
-  const {action,setAction} = useContext(ActionContext)
+  const { action, setAction } = useContext(ActionContext)
 
-  useEffect(() => {
+ useEffect(() => {
+  if (sandpack?.status === "running" && action) {
     GetSandpackClient();
-  }, [sandpack&&action]);
+  }
+}, [sandpack.status, action]);
 
   const GetSandpackClient = async () => {
     const client = previewRef.current?.getClient();
+    if (!client) return;
     if (client) {
       console.log(client);
-      const result=await client.getCodeSandboxURL();
-      if(action?.actionType=='deploy'){
-        window.open('http://'+result.sandboxId+'.csb.app/')
-      }else if(action?.actionType=='export'){
+      const result = await client.getCodeSandboxURL();
+      if (action?.actionType == 'deploy') {
+        window.open('http://' + result.sandboxId + '.csb.app/')
+      } else if (action?.actionType == 'export') {
         window?.open(result?.editorUrl)
       }
       console.log(result);

@@ -1,7 +1,8 @@
 # Deployment Environment Variable Setup Guide
 
 ## Issue
-The deployed project is getting a 500 error from `/api/gen-ai-code` because the `NEXT_PUBLIC_GEMINI_API_KEY` environment variable is not configured in your deployment environment.
+
+The deployed project is getting a 500 error from `/api/gen-ai-code` because the `GEMINI_API_KEY` environment variable is not configured in your deployment environment.
 
 ## Solution
 
@@ -13,13 +14,15 @@ The deployed project is getting a 500 error from `/api/gen-ai-code` because the 
    - Click on "Environment Variables"
 
 2. **Add the following environment variable:**
+
    ```
-   Name: NEXT_PUBLIC_GEMINI_API_KEY
+   Name: GEMINI_API_KEY
    Value: [Your Gemini API Key]
    Environment: Production, Preview, Development (select all)
    ```
 
 3. **Add any other required environment variables:**
+
    ```
    NEXT_PUBLIC_CONVEX_URL=[Your Convex URL]
    NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY=[Your Google OAuth Client ID]
@@ -40,6 +43,7 @@ The deployed project is getting a 500 error from `/api/gen-ai-code` because the 
 ## Verification
 
 After redeployment, check your browser console. You should see:
+
 - ✅ No "Gemini API key is not configured" errors
 - ✅ AI responses working correctly
 - ✅ No 500 errors from `/api/gen-ai-code` or `/api/ai-chat`
@@ -49,13 +53,15 @@ After redeployment, check your browser console. You should see:
 To test locally before deploying:
 
 1. Ensure your `.env.local` file contains:
+
    ```
-   NEXT_PUBLIC_GEMINI_API_KEY=your_api_key_here
+   GEMINI_API_KEY=your_api_key_here
    NEXT_PUBLIC_CONVEX_URL=your_convex_url_here
    NEXT_PUBLIC_GOOGLE_AUTH_CLIENT_ID_KEY=your_google_client_id_here
    ```
 
 2. Run the build command:
+
    ```bash
    npm run build
    ```

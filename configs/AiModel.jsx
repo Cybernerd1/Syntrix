@@ -3,21 +3,21 @@ import {
   HarmCategory,
   HarmBlockThreshold,
 } from "@google/generative-ai";
+import Prompt from "@/data/Prompt";
 
-// Lazy initialization to prevent build-time errors
+// ── Lazy singleton ──────────────────────────────────────────────
 let genAI = null;
 let model = null;
 
 const getModel = () => {
   if (!model) {
-    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-    
-    // Only initialize if we have an API key (prevents build-time errors)
+    const apiKey = process.env.GEMINI_API_KEY;
+
     if (!apiKey) {
-      console.warn("NEXT_PUBLIC_GEMINI_API_KEY is not set");
+      console.warn("GEMINI_API_KEY is not set in environment variables!");
       return null;
     }
-    
+
     genAI = new GoogleGenerativeAI(apiKey);
     model = genAI.getGenerativeModel({
       model: "gemini-1.5-flash",
@@ -26,6 +26,7 @@ const getModel = () => {
   return model;
 };
 
+// ── Generation configs ──────────────────────────────────────────
 const generationConfig = {
   temperature: 1,
   topP: 0.95,
@@ -34,7 +35,7 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
-const CodeGenerationConfig = {
+const codeGenerationConfig = {
   temperature: 1,
   topP: 0.95,
   topK: 40,
@@ -42,7 +43,7 @@ const CodeGenerationConfig = {
   responseMimeType: "application/json",
 };
 
-// Export functions that lazily initialize the chat sessions
+// ── Factory helpers ─────────────────────────────────────────────
 export const getChatSession = () => {
   const currentModel = getModel();
   if (!currentModel) {
@@ -60,39 +61,27 @@ export const getGenAiCode = () => {
     throw new Error("Gemini API key is not configured");
   }
   return currentModel.startChat({
-    generationConfig: CodeGenerationConfig,
+    generationConfig: codeGenerationConfig,
     history: [
       {
         role: "user",
-        parts: [
-          {
-            text: '```json\n{\n  "projectTitle": "Project Title Example"\n}\n```',
-          },
-        ],
-      },
-      {
-        role: "model",
-        parts: [
-          {
-            text: '```json\n{\n  "status": "Success",\n  "message": "JSON block is complete."\n}\n```',
-          },
-        ],
+        parts: [{ text: Prompt.CODE_GEN_PROMPT }],
       },
     ],
   });
 };
 
-// Legacy exports for backward compatibility (will be initialized on first use)
+// ── Legacy proxy exports (backward-compatible) ─────────────────
 export const chatSession = {
   sendMessage: async (message) => {
     const session = getChatSession();
     return session.sendMessage(message);
-  }
+  },
 };
 
 export const GenAiCode = {
   sendMessage: async (message) => {
     const session = getGenAiCode();
     return session.sendMessage(message);
-  }
+  },
 };

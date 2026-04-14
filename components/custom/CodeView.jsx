@@ -49,6 +49,19 @@ const CodeView = () => {
       workspaceId: id
     });
     const mergedFiles = { ...Lookup.DEFAULT_FILE, ...result?.fileData }
+    delete mergedFiles['/postcss.config.js'];
+    delete mergedFiles['/tailwind.config.js'];
+    
+    // Sanitize any existing tailwind directives to prevent Sandpack's PostCSS from crashing
+    for (const key in mergedFiles) {
+      if (key.endsWith('.css') && mergedFiles[key].code) {
+        mergedFiles[key].code = mergedFiles[key].code.replace(/@tailwind\s+(base|components|utilities);/g, '');
+        mergedFiles[key].code = mergedFiles[key].code.replace(/@import\s+['"]tailwindcss(\/.*)?['"];?/g, '');
+      } else if ((key.endsWith('.js') || key.endsWith('.jsx')) && mergedFiles[key].code) {
+        mergedFiles[key].code = mergedFiles[key].code.replace(/import\s+['"]tailwindcss(\/.*)?['"];?/g, '');
+      }
+    }
+    
     setFiles(mergedFiles)
     setLoading(false)
   }
@@ -85,6 +98,17 @@ const CodeView = () => {
       }
 
       const mergedFiles = { ...Lookup.DEFAULT_FILE, ...aiResp?.files }
+      delete mergedFiles['/postcss.config.js'];
+      delete mergedFiles['/tailwind.config.js'];
+      
+      // Sanitize AI generated CSS files just to be safe
+      for (const key in mergedFiles) {
+        if (key.endsWith('.css') && mergedFiles[key].code) {
+          mergedFiles[key].code = mergedFiles[key].code.replace(/@tailwind\s+(base|components|utilities);/g, '');
+          mergedFiles[key].code = mergedFiles[key].code.replace(/@import\s+['"]tailwindcss(\/.*)?['"];?/g, '');
+        }
+      }
+      
       setFiles(mergedFiles);
 
       if (aiResp?.files) {
@@ -138,7 +162,7 @@ const CodeView = () => {
         }
       }}
         options={{
-          externalResources: ['https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'],
+          externalResources: ['https://cdn.tailwindcss.com'],
           bundlerURL: 'https://sandpack-bundler.codesandbox.io',
         }}   >
         <SandpackLayout>

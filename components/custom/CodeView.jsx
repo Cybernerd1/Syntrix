@@ -22,6 +22,29 @@ import { ActionContext } from "@/context/ActionContext";
 import { useModel } from "@/context/ModelContext";
 import { toast } from "sonner";
 
+const TAILWIND_CDN = 'https://cdn.tailwindcss.com';
+
+/**
+ * Ensures /public/index.html always contains the Tailwind CDN <script> tag.
+ * AI-generated files sometimes ship their own index.html without it.
+ */
+const ensureTailwindCDN = (files) => {
+  const htmlKey = '/public/index.html';
+  if (files[htmlKey]?.code) {
+    if (!files[htmlKey].code.includes('cdn.tailwindcss.com')) {
+      // Inject right before </head>
+      files[htmlKey] = {
+        ...files[htmlKey],
+        code: files[htmlKey].code.replace(
+          '</head>',
+          `    <script src="${TAILWIND_CDN}"></script>\n  </head>`
+        ),
+      };
+    }
+  }
+  return files;
+};
+
 const CodeView = () => {
   const { userDetail, setUserDetail } = useContext(UserDetailContext)
   const [activeTab, setActiveTab] = useState('code')
@@ -48,7 +71,7 @@ const CodeView = () => {
     const result = await convex.query(api.workspace.GetWorkspace, {
       workspaceId: id
     });
-    const mergedFiles = { ...Lookup.DEFAULT_FILE, ...result?.fileData }
+    let mergedFiles = { ...Lookup.DEFAULT_FILE, ...result?.fileData }
     delete mergedFiles['/postcss.config.js'];
     delete mergedFiles['/tailwind.config.js'];
     
@@ -61,6 +84,9 @@ const CodeView = () => {
         mergedFiles[key].code = mergedFiles[key].code.replace(/import\s+['"]tailwindcss(\/.*)?['"];?/g, '');
       }
     }
+
+    // Ensure Tailwind CDN is always present in index.html
+    mergedFiles = ensureTailwindCDN(mergedFiles);
     
     setFiles(mergedFiles)
     setLoading(false)
@@ -97,7 +123,7 @@ const CodeView = () => {
         return;
       }
 
-      const mergedFiles = { ...Lookup.DEFAULT_FILE, ...aiResp?.files }
+      let mergedFiles = { ...Lookup.DEFAULT_FILE, ...aiResp?.files }
       delete mergedFiles['/postcss.config.js'];
       delete mergedFiles['/tailwind.config.js'];
       
@@ -108,6 +134,9 @@ const CodeView = () => {
           mergedFiles[key].code = mergedFiles[key].code.replace(/@import\s+['"]tailwindcss(\/.*)?['"];?/g, '');
         }
       }
+
+      // Ensure Tailwind CDN is always present in index.html
+      mergedFiles = ensureTailwindCDN(mergedFiles);
       
       setFiles(mergedFiles);
 
@@ -156,14 +185,16 @@ const CodeView = () => {
           <h2 className={`text-sm cursor-pointer ${activeTab == 'preview' && 'text-blue-500 bg-blue-500/25 p-1 rounded-full'} `} onClick={() => { setActiveTab('preview') }} >Preview</h2>
         </div>
       </div>
-      <SandpackProvider key={JSON.stringify(files)} files={files} template="react" theme={"dark"} customSetup={{
+      <SandpackProvider
+      //  key={JSON.stringify(files)}
+       files={files} template="react" theme={"dark"} customSetup={{
         dependencies: {
           ...Lookup.DEPENDANCY
         }
       }}
         options={{
           externalResources: ['https://cdn.tailwindcss.com'],
-          bundlerURL: 'https://sandpack-bundler.codesandbox.io',
+          // bundlerURL: 'https://sandpack-bundler.codesandbox.io',
         }}   >
         <SandpackLayout>
           {activeTab == 'code' ? (<>
